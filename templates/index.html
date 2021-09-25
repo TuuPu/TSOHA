@@ -1,0 +1,24 @@
+{% if session.user_id %}
+You are logged in.
+
+    <h4>Admin's functions</h4>
+    <p><a href="/addrestaurant">Add a restaurant</a></p>
+    <p><a href="/deleterestaurant">delete a restaurant</a></p>
+    <p><a href="/tags">Give tags and other information for a restaurant</a></p>
+    <hr>
+
+    <p><a href="/restaurantlist">Check the list of restaurants</a></p>
+    <p><a href="/map">Check restaurant locations from a map</a></p>
+
+    <form action="/search" method="GET">
+    Search for a restaurant by its description<br>
+    <input type="text" name="query">
+    <input type="submit" value="Etsi">
+    </form>
+
+
+<a href="/logout">Log out</a>
+
+{% else %}
+<a href="/login">Login</a>
+{% endif %}

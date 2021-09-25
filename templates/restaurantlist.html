@@ -1,0 +1,7 @@
+<p><a href="/">Back to index</a></p>
+Ravintolat
+<hr>
+{% for restaurantlist in restaurantlists %}
+<a href = "/restaurant/{{restaurantlist.id}}">{{ restaurantlist.name }}</a>
+<hr>
+{% endfor %}
