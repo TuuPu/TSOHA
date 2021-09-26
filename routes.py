@@ -60,14 +60,12 @@ def addrestaurant():
 @app.route("/restaurantlist")
 def restaurantlist():
     restaurantlists = restaurants.restaurantlist()
-    print(restaurantlists)
     return render_template("restaurantlist.html", restaurantlists=restaurantlists)
 
 #Perustoiminnoiltaan valmis, pitää lisätä vielä lisää informaatiota ravintoloille kuvauksen lisäksi
 @app.route("/restaurant/<int:id>")
 def restaurant(id):
     description = restaurants.description(id)
-    print(description)
     return render_template("restaurant.html", id=id, description=description)
 
 #Ei toimintoja vielä, korjaa
