@@ -1,3 +1,19 @@
+<form method="GET">
 <p><a href="/">Back to index</a></p>
 
-{{ description.type}}
+Description: {{ description.type}}
+<p>
+Address: {{ address}}
+<p>
+Reviews:
+{% for message in messages %}
+<hr>
+{{ message.content }}
+{% endfor %}
+</form>
+<form method="POST">
+<p>
+<textarea name="message" rows="3" cols="50"></textarea>
+<p>
+<input type="submit" value="Send">
+</form>

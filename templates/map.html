@@ -1,11 +1,60 @@
 <p><a href="/">Back to index</a></p>
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html>
+  <head>
+    <title>Add Map</title>
 
-</body>
+    <style type="text/css">
+      #map {
+        height: 400px;
+        width: 100%;
+      }
+    </style>
+    <script>
+      function initMap() {
+        let restaurantinfo = JSON.parse('{{ info | tojson }}');
+        var map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 10,
+          center: new google.maps.LatLng(60.1699, 24.9384),
+        });
+    	var infowindow = new google.maps.InfoWindow();
+
+    	var marker, i;
+    	for (i = 0; i < restaurantinfo.length; i++) {
+      		marker = new google.maps.Marker({
+        	position: new google.maps.LatLng(restaurantinfo[i][2], restaurantinfo[i][3]),
+        	map: map
+      	});
+
+      	google.maps.event.addListener(marker, 'click', (function(marker, i) {
+        	return function() {
+			infowindow.setContent('<div id="content">' +
+			    	'<div id="siteNotice">' +
+    			    "</div>" +
+    			    '<h1 id="firstHeading" class="firstHeading">' + restaurantinfo[i][1] + '</h1>' +
+    			    '<div id="bodyContent">' +
+    			    "<p>" + restaurantinfo[i][4] + "</p>" +
+    			    '<p>Restaurant page <a href="restaurant/' + restaurantinfo[i][0] + '">' +
+    			    "here</a> " +
+    			    "</p>" +
+    			    "</div>" +
+    			    "</div>");
+          		infowindow.open(map, marker);
+        	}
+      	})(marker, i));
+      }
+    }
+    </script>
+  </head>
+  <body>
+    <h3>Restaurants</h3>
+    <!--The div element for the map -->
+    <div id="map"></div>
+
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?callback=initMap&libraries=&v=weekly"
+      async
+    ></script>
+  </body>
 </html>

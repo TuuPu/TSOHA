@@ -7,14 +7,23 @@ CREATE TABLE users (
 CREATE TABLE userinfo (
     id SERIAL PRIMARY KEY,
     title TEXT,
-    admin INTEGER,
     user_id INTEGER REFERENCES users
 );
+
 
 CREATE TABLE restaurants (
     id SERIAL PRIMARY KEY,
     name TEXT UNIQUE,
+    visible BOOLEAN,
     address TEXT UNIQUE
+);
+
+CREATE TABLE messages (
+    id SERIAL PRIMARY KEY,
+    content TEXT,
+    user_id INTEGER REFERENCES users,
+    restaurant_id INTEGER REFERENCES restaurants,
+    sent_at TIMESTAMP
 );
 
 CREATE TABLE restaurant_info (
@@ -24,15 +33,9 @@ CREATE TABLE restaurant_info (
     restaurant_id INTEGER REFERENCES restaurants
 );
 
-CREATE TABLE restaurant_messages (
+CREATE TABLE restaurant_tags (
     id SERIAL PRIMARY KEY,
-    messages_id INTEGER REFERENCES messages,
-    restaurants_id INTEGER REFERENCES restaurants
+    tag TEXT,
+    restaurant_id INTEGER REFERENCES restaurants
 );
 
-CREATE TABLE messages (
-    id SERIAL PRIMARY KEY,
-    content TEXT,
-    user_id INTEGER REFERENCES users,
-    sent_at TIMESTAMP
-);

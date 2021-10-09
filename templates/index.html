@@ -10,10 +10,16 @@ You are logged in.
     <p><a href="/restaurantlist">Check the list of restaurants</a></p>
     <p><a href="/map">Check restaurant locations from a map</a></p>
 
-    <form action="/search" method="GET">
+    <form action="/restaurantlist" method="POST">
     Search for a restaurant by its description<br>
     <input type="text" name="query">
     <input type="submit" value="Etsi">
+        <p>
+        <select name="existing_tag">
+            {% for existing_tag in existing_tags %}
+                <option value= "{{existing_tag.tag}}" SELECTED>{{existing_tag.tag}}</option>"
+            {% endfor %}
+        </select>
     </form>
 
 

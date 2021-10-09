@@ -1,11 +1,22 @@
 <p><a href="/">Back to index</a></p>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<form action="/tags" method="POST">
+    <p>
+        Add a tag for a restaurant
+        <input type="text" name="tag">
+        Or choose an existing one
+        <select name="existing_tag">
+            {% for existing_tag in existing_tags %}
+                <option value= "{{existing_tag.tag}}" SELECTED>{{existing_tag.tag}}</option>"
+            {% endfor %}
+        </select>
+    </p>
+    <p>
+        Choose restaurants you want to give the tag to
+        <hr>
+        {% for restaurantlist in restaurantlists %}
+        <input type="checkbox" name="selected_restaurants" value="{{restaurantlist.id}}">{{restaurantlist.name}}
+        <hr>
+        {% endfor %}
+    </p>
+    <input type="submit" value="choose">
+</form>
