@@ -115,6 +115,7 @@ def restaurant(id):
     geolocator = Nominatim(user_agent="app.py")
     if request.method == "GET":
         gradelists = [1, 2, 3, 4, 5]
+        restaurant = restaurants.get_name(id)
         messages = restaurants.get_messages(id)
         description = restaurants.description(id)
         address_loc = geolocator.reverse(restaurants.address(id))
@@ -124,12 +125,13 @@ def restaurant(id):
         opening = restaurants.get_openings(id)
         loc_raw = location.raw['address']
         address = loc_raw['road'] + ' ' + loc_raw['house_number']
-        return render_template("restaurant.html", id=id, description=description, address=address, messages=messages, gradelists=gradelists, opening=opening)
+        return render_template("restaurant.html", id=id, description=description, address=address, messages=messages, gradelists=gradelists, opening=opening, restaurant=restaurant)
     if request.method == "POST":
         if not session.get("csrf_token") and not session.get("user_id"):
             return render_template("login.html")
         if session["csrf_token"] != request.form["csrf_token"]:
             return render_template("error.html", message="csrf token invalid")
+        restaurant = restaurants.get_name(id)
         gradelists = [1, 2, 3, 4, 5]
         description = restaurants.description(id)
         opening = restaurants.get_openings(id)
@@ -146,7 +148,7 @@ def restaurant(id):
         if len(save_message)>5000:
             return render_template("error.html", message="Message too long")
         else:
-            return render_template("restaurant.html", id=id, description=description, address=address, savemessages=savemessages, messages=messages, gradelists=gradelists, opening=opening)
+            return render_template("restaurant.html", id=id, description=description, address=address, savemessages=savemessages, messages=messages, gradelists=gradelists, opening=opening, restaurant=restaurant)
 
 #Valmis
 @app.route("/deleterestaurant", methods=["GET", "POST"])

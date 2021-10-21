@@ -95,6 +95,16 @@ def restaurant_id(name):
         print(error)
         return False
 
+def get_name(id):
+    try:
+        sql = "SELECT name FROM restaurants WHERE id=:id"
+        result = db.session.execute(sql, {"id":id})
+        name = result.fetchone()[0]
+        return name
+    except Exception as error:
+        print(error)
+        return False
+
 def add_tag(id, tag):
     try:
         sql = ("INSERT INTO restaurant_tags (tag, restaurant_id) VALUES (:tag, :id)")
