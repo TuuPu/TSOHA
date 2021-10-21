@@ -1,3 +1,6 @@
+<link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/main.css') }}">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<body>
 <form action="/register" method="post">
 Name: <input type="text" name="username">
 <p>
@@ -10,3 +13,4 @@ Rewrite password: <input type="password" name="password2">
 <p>
 <input type="submit" value="Create user">
 </form>
+</body>

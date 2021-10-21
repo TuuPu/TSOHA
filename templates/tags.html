@@ -1,4 +1,11 @@
-<p><a href="/">Back to index</a></p>
+<link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/main.css') }}">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<body>
+
+<p><a href="/">Back to main page</a></p>
+<div class="header">
+    <h1>Give tags for restaurants</h1>
+</div>
 <form action="/tags" method="POST">
     <p>
         Add a tag for a restaurant
@@ -20,3 +27,4 @@
     </p>
     <input type="submit" value="choose">
 </form>
+</body>

@@ -4,13 +4,6 @@ CREATE TABLE users (
     password TEXT, admin INTEGER
 );
 
-CREATE TABLE userinfo (
-    id SERIAL PRIMARY KEY,
-    title TEXT,
-    user_id INTEGER REFERENCES users
-);
-
-
 CREATE TABLE restaurants (
     id SERIAL PRIMARY KEY,
     name TEXT UNIQUE,
@@ -21,15 +14,15 @@ CREATE TABLE restaurants (
 CREATE TABLE messages (
     id SERIAL PRIMARY KEY,
     content TEXT,
+    grade INTEGER,
     user_id INTEGER REFERENCES users,
     restaurant_id INTEGER REFERENCES restaurants,
-    sent_at TIMESTAMP
+    sent_at TIMESTAMP DEFAULT NOW()
 );
 
 CREATE TABLE restaurant_info (
     id SERIAL PRIMARY KEY,
     type TEXT,
-    grade INTEGER,
     restaurant_id INTEGER REFERENCES restaurants
 );
 
@@ -38,4 +31,13 @@ CREATE TABLE restaurant_tags (
     tag TEXT,
     restaurant_id INTEGER REFERENCES restaurants
 );
+
+CREATE TABLE opening_times (
+    id SERIAL PRIMARY KEY,
+    day TEXT,
+    opening_time TEXT,
+    closing_time TEXT,
+    open TEXT,
+    restaurant_id INTEGER REFERENCES restaurants
+)
 

@@ -65,6 +65,16 @@ def deleterestaurant(name):
         print(error)
         return False
 
+def get_openings(restaurant_id):
+    try:
+        sql = "SELECT day, opening_time, closing_time, open FROM opening_times WHERE restaurant_id=:restaurant_id"
+        result = db.session.execute(sql, {"restaurant_id":restaurant_id})
+        openinglist = result.fetchall()
+        return openinglist
+    except Exception as error:
+        print(error)
+        return False
+
 
 def restaurantlist():
     try:
@@ -79,7 +89,7 @@ def restaurant_id(name):
     try:
         sql = ("SELECT id FROM restaurants WHERE name=:name")
         result = db.session.execute(sql, {"name":name})
-        id_list = result.fetchone()
+        id_list = result.fetchone()[0]
         return id_list
     except Exception as error:
         print(error)
@@ -112,19 +122,31 @@ def all_info():
         print(error)
         return False
 
-def save_message(id, content):
+def save_message(restaurant_id, content, grade, user_id):
     try:
-        sql = ("INSERT INTO messages (content, restaurant_id) VALUES (:content, :id)")
-        db.session.execute(sql, {"content":content, "id":id})
+        sql = ("INSERT INTO messages (content, restaurant_id, grade, user_id, sent_at) VALUES (:content, :restaurant_id, :grade, :user_id, NOW())")
+        db.session.execute(sql, {"content":content, "restaurant_id":restaurant_id, "grade":grade, "user_id":user_id})
         db.session.commit()
         return True
     except Exception as error:
         print(error)
         return False
 
-def get_messages(id):
+def save_opening(day, opening_time, closing_time, open, restaurant_id):
     try:
-        sql = ("SELECT DISTINCT content FROM messages WHERE restaurant_id=:id")
+        sql = ("INSERT INTO opening_times (day, opening_time, closing_time, open, restaurant_id) VALUES (:day, :opening_time, "
+               ":closing_time, :open, :restaurant_id)")
+        db.session.execute(sql, {"day":day, "opening_time":opening_time, "closing_time":closing_time, "open":open, "restaurant_id":restaurant_id})
+        db.session.commit()
+        return True
+    except Exception as error:
+        print(error)
+        return False
+
+
+def get_messages(id):
+    try: #Tässä ehkä distinct
+        sql = ("SELECT DISTINCT m.content, m.grade, u.username, m.sent_at FROM messages as m, users as u WHERE u.id=m.user_id AND restaurant_id=:id ORDER BY sent_at")
         result = db.session.execute(sql, {"id":id})
         messages = result.fetchall()
         list = []

@@ -1,30 +1,37 @@
 {% if session.user_id %}
+<link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/main.css') }}">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<body>
+<div class="header">
+    <h1>Restaurant app</h1>
+</div>
+<p>
 You are logged in.
-
+    {% if session.userrole == 1 %}
     <h4>Admin's functions</h4>
     <p><a href="/addrestaurant">Add a restaurant</a></p>
     <p><a href="/deleterestaurant">delete a restaurant</a></p>
     <p><a href="/tags">Give tags and other information for a restaurant</a></p>
     <hr>
-
+    {% endif %}
     <p><a href="/restaurantlist">Check the list of restaurants</a></p>
     <p><a href="/map">Check restaurant locations from a map</a></p>
 
     <form action="/restaurantlist" method="POST">
     Search for a restaurant by its description<br>
     <input type="text" name="query">
-    <input type="submit" value="Etsi">
         <p>
+            Or by a tag<br>
         <select name="existing_tag">
             {% for existing_tag in existing_tags %}
                 <option value= "{{existing_tag.tag}}" SELECTED>{{existing_tag.tag}}</option>"
             {% endfor %}
         </select>
+            <p>
+        <input type="submit" value="Search">
     </form>
-
-
 <a href="/logout">Log out</a>
-
 {% else %}
 <a href="/login">Login</a>
 {% endif %}
+</body>

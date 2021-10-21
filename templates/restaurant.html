@@ -1,19 +1,47 @@
+<link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/main.css') }}">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<body>
 <form method="GET">
-<p><a href="/">Back to index</a></p>
-
+<p><a href="/">Back to main page</a></p>
+<h1>Restaurant's info</h1>
 Description: {{ description.type}}
 <p>
 Address: {{ address}}
 <p>
+Opening times:
+    {% for open in opening %}
+    <p>
+    {{ open.day }}
+    <p>
+    opens: {{ open.opening_time}} closes: {{ open.closing_time}} open/closed: {{open.open}}
+    {% endfor %}
+<p>
 Reviews:
 {% for message in messages %}
 <hr>
-{{ message.content }}
+    Message: {{ message.content}}
+    <p>
+    Grade: {{ message.grade }}
+    <p>
+    User: {{message.username}}
+    <p>
+    date: {{message.sent_at}}
+<hr>
 {% endfor %}
 </form>
 <form method="POST">
 <p>
+        Give a grade <select name="gradelist">
+            {% for gradelist in gradelists %}
+                <option value= "{{gradelist}}" SELECTED>{{gradelist}}</option>"
+            {% endfor %}
+        </select>
+<p>
+Write a review:
+<p>
 <textarea name="message" rows="3" cols="50"></textarea>
 <p>
+<input type="hidden" name="csrf_token" value="{{ session.csrf_token }}">
 <input type="submit" value="Send">
 </form>
+</body>

@@ -1,4 +1,10 @@
-<p><a href="/">Back to index</a></p>
+<link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/main.css') }}">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<body>
+<p><a href="/">Back to main page</a></p>
+<div class="header">
+<h1>Add a restaurant</h1>
+</div>
 <form action="/addrestaurant" method="POST">
   <p>Restaurant's name<br>
   <input type="text" name="name"></p>
@@ -6,5 +12,20 @@
   <input type="text" name="description"></p>
   <p>Address<br>
   <input type="text" name="address"></p>
+  <p>
+    <table>
+  	  <tr><td></td><td>Opening time</td><td>Closing time</td></tr>
+        {% for weekdaylist in weekdaylists %}
+	    <tr>
+		  <td>{{ weekdaylist }}</td>
+		  <td><input type="time" name="opening_{{ weekdaylist }}"></td>
+		  <td><input type="time" name="closing_{{ weekdaylist }}"></td>
+		  <td><input type="radio" name="closed_{{ weekdaylist }}" value="open" checked>Open</td>
+		  <td><input type="radio" name="closed_{{ weekdaylist }}" value="closed">Closed</td>
+	    </tr>
+  {% endfor %}
+</table>
+  </p>
   <input type="submit" value="Add a restaurant">
 </form>
+</body>

@@ -1,7 +1,13 @@
-<p><a href="/">Back to index</a></p>
-Ravintolat
+<link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/main.css') }}">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<body>
+<p><a href="/">Back to main page</a></p>
+<div class="header">
+<h1>List of restaurants available</h1>
+</div>
 <hr>
 {% for restaurantlist in restaurantlists %}
 <a href = "/restaurant/{{restaurantlist.id}}">{{ restaurantlist.name }}</a>
 <hr>
 {% endfor %}
+</body>
