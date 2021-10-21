@@ -5,9 +5,11 @@
 <div class="header">
 <h1>List of restaurants available</h1>
 </div>
+<div class="content">
 <hr>
 {% for restaurantlist in restaurantlists %}
 <a href = "/restaurant/{{restaurantlist.id}}">{{ restaurantlist.name }}</a>
 <hr>
 {% endfor %}
+</div>
 </body>
