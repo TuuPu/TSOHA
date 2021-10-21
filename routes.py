@@ -12,8 +12,9 @@ from time import sleep
 @app.route("/", methods=["GET", "POST"])
 def index():
     if request.method == "GET":
+        name = users.get_username(int(session.get("user_id")))
         existing_tags = restaurants.select_tags()
-        return render_template("index.html", existing_tags=existing_tags)
+        return render_template("index.html", existing_tags=existing_tags, name=name)
 
 #Valmis
 @app.route("/login", methods=["GET", "POST"])

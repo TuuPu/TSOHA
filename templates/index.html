@@ -6,7 +6,8 @@
     <h1>Restaurant app</h1>
 </div>
 <p>
-You are logged in.
+<div class="content">
+You are logged in as {{name}}.
     {% if session.userrole == 1 %}
     <h4>Admin's functions</h4>
     <p><a href="/addrestaurant">Add a restaurant</a></p>
@@ -34,4 +35,5 @@ You are logged in.
 {% else %}
 <a href="/login">Login</a>
 {% endif %}
+</div>  
 </body>

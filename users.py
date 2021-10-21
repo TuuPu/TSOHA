@@ -40,6 +40,16 @@ def register(username, password, admin):
 def user_id():
     return session.get("user_id",0)
 
+def get_username(id):
+    try:
+        sql = "SELECT username FROM users WHERE id=:id"
+        result = db.session.execute(sql, {"id":id})
+        name = result.fetchone()[0]
+        return name
+    except Exception as error:
+        print(error)
+        return False
+
 def is_admin():
     sql = "SELECT admin FROM users WHERE id=:session_id"
     result = db.session.execute(sql, {"session_id":user_id()})
