@@ -17,7 +17,8 @@ def addrestaurant(name, address, type):
 
 def search_by_type(type):
     try:
-        sql = "SELECT r.id, r.name FROM restaurants as r, restaurant_info as i WHERE r.id=i.restaurant_id AND i.type ILIKE :type"
+        sql = "SELECT r.id, r.name FROM restaurants as r, restaurant_info as i WHERE r.id=i.restaurant_id " \
+              "AND i.type ILIKE :type"
         result = db.session.execute(sql, {"type":"%"+type+"%"})
         restaurantlists = result.fetchall()
         return restaurantlists
@@ -27,7 +28,8 @@ def search_by_type(type):
 
 def search_by_tag(tag):
     try:
-        sql = "SELECT r.id, r.name FROM restaurants as r, restaurant_tags as t WHERE r.id=t.restaurant_id AND t.tag=:tag"
+        sql = "SELECT r.id, r.name FROM restaurants as r, restaurant_tags as t WHERE r.id=t.restaurant_id " \
+              "AND t.tag=:tag"
         result = db.session.execute(sql, {"tag":tag})
         restaurantlists = result.fetchall()
         return restaurantlists
@@ -117,7 +119,8 @@ def add_tag(id, tag):
 
 def all_info():
     try:
-        result = db.session.execute("SELECT r.id, r.name, r.address, i.type FROM restaurants as r, restaurant_info as i WHERE r.id=i.restaurant_id")
+        result = db.session.execute("SELECT r.id, r.name, r.address, i.type FROM restaurants as r, "
+                                    "restaurant_info as i WHERE r.id=i.restaurant_id")
         infolists = result.fetchall()
         datalists=[]
         for infolist in infolists:
@@ -134,7 +137,8 @@ def all_info():
 
 def save_message(restaurant_id, content, grade, user_id):
     try:
-        sql = ("INSERT INTO messages (content, restaurant_id, grade, user_id, sent_at) VALUES (:content, :restaurant_id, :grade, :user_id, NOW())")
+        sql = ("INSERT INTO messages (content, restaurant_id, grade, user_id, sent_at) VALUES "
+               "(:content, :restaurant_id, :grade, :user_id, NOW())")
         db.session.execute(sql, {"content":content, "restaurant_id":restaurant_id, "grade":grade, "user_id":user_id})
         db.session.commit()
         return True
@@ -144,9 +148,11 @@ def save_message(restaurant_id, content, grade, user_id):
 
 def save_opening(day, opening_time, closing_time, open, restaurant_id):
     try:
-        sql = ("INSERT INTO opening_times (day, opening_time, closing_time, open, restaurant_id) VALUES (:day, :opening_time, "
+        sql = ("INSERT INTO opening_times (day, opening_time, closing_time, open, restaurant_id) "
+               "VALUES (:day, :opening_time, "
                ":closing_time, :open, :restaurant_id)")
-        db.session.execute(sql, {"day":day, "opening_time":opening_time, "closing_time":closing_time, "open":open, "restaurant_id":restaurant_id})
+        db.session.execute(sql, {"day":day, "opening_time":opening_time, "closing_time":closing_time, "open":open,
+                                 "restaurant_id":restaurant_id})
         db.session.commit()
         return True
     except Exception as error:
@@ -156,7 +162,8 @@ def save_opening(day, opening_time, closing_time, open, restaurant_id):
 
 def get_messages(id):
     try: #Tässä ehkä distinct
-        sql = ("SELECT DISTINCT m.content, m.grade, u.username, m.sent_at FROM messages as m, users as u WHERE u.id=m.user_id AND restaurant_id=:id ORDER BY sent_at")
+        sql = ("SELECT DISTINCT m.content, m.grade, u.username, m.sent_at FROM messages as m, users "
+               "as u WHERE u.id=m.user_id AND restaurant_id=:id ORDER BY sent_at")
         result = db.session.execute(sql, {"id":id})
         messages = result.fetchall()
         list = []
