@@ -26,6 +26,10 @@ Myös ravintolan etsiminen kuvauksen perusteella on valmis. Haku palauttaa ravin
 
 Viimeisten pienten ominaisuuksien lisäämisen lisäksi sovelluksen ulkoasu tulee julkaistuksi viimeisessä palautuksessa. Ulkoasun jättäminen viimeiseen palautukseen on tarkoituksenmukaista, sillä ensin on haluttu varmistaa sovelluksen toimivuus.
 
+## Huomioita
+
+Ajoittain sivusto kaatuu, kun ravintolaa yrittää lisätä tai tietyn ravintolan sivulle yrittää mennä. Myös joskus arvostelujen yhteyksissä. En ole löytänyt tälle mitään muuta järkevää selitysä, kuin se, että geopy-kirjasto ilmoittaa Service Timeoutista. Esimerkiksi torstaina 14.10 en pystynyt testaamaan mitään lokaalisti, mutta Herokussa kaikki toimi hienosti. Toisaalta perjantaina asia oli toisinpäin. Tämä on varmaan ongelma, jonka kanssa joutuu elämään ilmaisversioiden takia.
+
 ## Ominaisuudet:
 
 * Ravintolat voi etsiä kartasta tai sanahaun perusteella (valmis)
