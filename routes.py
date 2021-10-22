@@ -50,12 +50,12 @@ def register():
             return render_template("error.html", message="Password too long or short")
         password2 = request.form["password2"]
         if password1 != password2:
-            return render_template("error.html", message="Salasanat eroavat")
+            return render_template("error.html", message="Passwords differ")
         admin = request.form["user"]
         if users.register(username, password1, admin):
             return redirect("/")
         else:
-            return render_template("error.html", message="Rekisteröinti ei onnistunut")
+            return render_template("error.html", message="Couldn't register a new account, you could try a different username")
 
 #Valmis (voi vielä kattoa onko aukeeminen > sulkeminen)
 @app.route("/addrestaurant", methods=["GET", "POST"])
@@ -114,38 +114,45 @@ def restaurantlist():
 @app.route("/restaurant/<int:id>", methods=["GET", "POST"])
 def restaurant(id):
     geolocator = Nominatim(user_agent="app.py")
+    gradelists = [1, 2, 3, 4, 5]
+    restaurant = restaurants.get_name(id)
+    messages = restaurants.get_messages(id)
+    description = restaurants.description(id)
+    opening = restaurants.get_openings(id)
+    address_loc = geolocator.reverse(restaurants.address(id))
+    location = geolocator.geocode(address_loc, addressdetails=True)
+    loc_raw = location.raw['address']
+    address = loc_raw['road'] + ' ' + loc_raw['house_number']
     if request.method == "GET":
-        gradelists = [1, 2, 3, 4, 5]
-        restaurant = restaurants.get_name(id)
-        messages = restaurants.get_messages(id)
-        description = restaurants.description(id)
-        address_loc = geolocator.reverse(restaurants.address(id))
-        sleep(1)
-        location = geolocator.geocode(address_loc, addressdetails=True)
-        sleep(1)
-        opening = restaurants.get_openings(id)
-        loc_raw = location.raw['address']
-        address = loc_raw['road'] + ' ' + loc_raw['house_number']
+        #gradelists = [1, 2, 3, 4, 5]
+        #restaurant = restaurants.get_name(id)
+        #messages = restaurants.get_messages(id)
+        #description = restaurants.description(id)
+        #address_loc = geolocator.reverse(restaurants.address(id))
+        #location = geolocator.geocode(address_loc, addressdetails=True) #TÄSSÄ OLI SLEEPIT JOS EI TOIMI HEROKUSSA
+        #opening = restaurants.get_openings(id)
+        #loc_raw = location.raw['address']
+        #address = loc_raw['road'] + ' ' + loc_raw['house_number']
         return render_template("restaurant.html", id=id, description=description, address=address, messages=messages, gradelists=gradelists, opening=opening, restaurant=restaurant)
     if request.method == "POST":
         if not session.get("csrf_token") and not session.get("user_id"):
             return render_template("login.html")
         if session["csrf_token"] != request.form["csrf_token"]:
             return render_template("error.html", message="csrf token invalid")
-        restaurant = restaurants.get_name(id)
-        gradelists = [1, 2, 3, 4, 5]
-        description = restaurants.description(id)
-        opening = restaurants.get_openings(id)
-        address_loc = geolocator.reverse(restaurants.address(id))
-        sleep(1)
-        location = geolocator.geocode(address_loc, addressdetails=True)
-        sleep(1)
-        loc_raw = location.raw['address']
-        address = loc_raw['road'] + ' ' + loc_raw['house_number']
+        #restaurant = restaurants.get_name(id)
+        #gradelists = [1, 2, 3, 4, 5]
+        #description = restaurants.description(id)
+        #opening = restaurants.get_openings(id)
+        #address_loc = geolocator.reverse(restaurants.address(id))
+        #sleep(1)
+        #location = geolocator.geocode(address_loc, addressdetails=True)
+        #sleep(1)
+        #loc_raw = location.raw['address']
+        #address = loc_raw['road'] + ' ' + loc_raw['house_number']
         save_message = request.form["message"]
         grade = request.form["gradelist"]
         savemessages = restaurants.save_message(id, save_message, grade, session.get("user_id", 0))
-        messages=restaurants.get_messages(id)
+        #messages=restaurants.get_messages(id)
         if len(save_message)>5000:
             return render_template("error.html", message="Message too long")
         else:
