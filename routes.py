@@ -152,7 +152,7 @@ def restaurant(id):
         save_message = request.form["message"]
         grade = request.form["gradelist"]
         savemessages = restaurants.save_message(id, save_message, grade, session.get("user_id", 0))
-        #messages=restaurants.get_messages(id)
+        messages=restaurants.get_messages(id)
         if len(save_message)>5000:
             return render_template("error.html", message="Message too long")
         else:
