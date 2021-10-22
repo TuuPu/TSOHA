@@ -32,8 +32,7 @@ def register(username, password, admin):
         sql = "INSERT INTO users (username,password, admin) VALUES (:username,:password, :admin)"
         db.session.execute(sql, {"username":username, "password":hash_value, "admin":admin})
         db.session.commit()
-    except Exception as error:
-        print(error)
+    except Exception:
         return False
     return login(username, password)
 
@@ -46,11 +45,13 @@ def get_username(id):
         result = db.session.execute(sql, {"id":id})
         name = result.fetchone()[0]
         return name
-    except Exception as error:
-        print(error)
+    except Exception:
         return False
 
 def is_admin():
-    sql = "SELECT admin FROM users WHERE id=:session_id"
-    result = db.session.execute(sql, {"session_id":user_id()})
-    return result.fetchone()
+    try:
+        sql = "SELECT admin FROM users WHERE id=:session_id"
+        result = db.session.execute(sql, {"session_id":user_id()})
+        return result.fetchone()
+    except Exception:
+        return False

@@ -11,8 +11,7 @@ def addrestaurant(name, address, type):
         db.session.execute(sql, {"restaurant_id":restaurant_id, "type":type})
         db.session.commit()
         return True
-    except Exception as error:
-        print(error)
+    except Exception:
         return False
 
 def search_by_type(type):
@@ -22,8 +21,7 @@ def search_by_type(type):
         result = db.session.execute(sql, {"type":"%"+type+"%"})
         restaurantlists = result.fetchall()
         return restaurantlists
-    except Exception as error:
-        print(error)
+    except Exception:
         return False
 
 def search_by_tag(tag):
@@ -33,8 +31,7 @@ def search_by_tag(tag):
         result = db.session.execute(sql, {"tag":tag})
         restaurantlists = result.fetchall()
         return restaurantlists
-    except Exception as error:
-        print(error)
+    except Exception:
         return False
 
 def description(id):
@@ -43,8 +40,7 @@ def description(id):
         result = db.session.execute(sql, {"id":id})
         description = result.fetchone()
         return description
-    except Exception as error:
-        print(error)
+    except Exception:
         return False
 
 def address(id):
@@ -53,8 +49,7 @@ def address(id):
         result = db.session.execute(sql, {"id":id})
         address = result.fetchone()[0]
         return address
-    except Exception as error:
-        print(error)
+    except Exception:
         return False
 
 def deleterestaurant(name):
@@ -63,8 +58,7 @@ def deleterestaurant(name):
         db.session.execute(sql, {"name":name})
         db.session.commit()
         return True
-    except Exception as error:
-        print(error)
+    except Exception:
         return False
 
 def get_openings(restaurant_id):
@@ -73,8 +67,7 @@ def get_openings(restaurant_id):
         result = db.session.execute(sql, {"restaurant_id":restaurant_id})
         openinglist = result.fetchall()
         return openinglist
-    except Exception as error:
-        print(error)
+    except Exception:
         return False
 
 
@@ -83,8 +76,7 @@ def restaurantlist():
         result = db.session.execute("SELECT id, name FROM restaurants WHERE visible=TRUE")
         restaurantlist = result.fetchall()
         return restaurantlist
-    except Exception as error:
-        print(error)
+    except Exception:
         return False
 
 def restaurant_id(name):
@@ -93,8 +85,7 @@ def restaurant_id(name):
         result = db.session.execute(sql, {"name":name})
         id_list = result.fetchone()[0]
         return id_list
-    except Exception as error:
-        print(error)
+    except Exception:
         return False
 
 def get_name(id):
@@ -103,8 +94,7 @@ def get_name(id):
         result = db.session.execute(sql, {"id":id})
         name = result.fetchone()[0]
         return name
-    except Exception as error:
-        print(error)
+    except Exception:
         return False
 
 def add_tag(id, tag):
@@ -113,8 +103,7 @@ def add_tag(id, tag):
         db.session.execute(sql, {"tag":tag, "id":id})
         db.session.commit()
         return True
-    except Exception as error:
-        print(error)
+    except Exception:
         return False
 
 def all_info():
@@ -131,8 +120,7 @@ def all_info():
             info_tmp.insert(3, coord_list[1])
             datalists.append(info_tmp)
         return datalists
-    except Exception as error:
-        print(error)
+    except Exception:
         return False
 
 def save_message(restaurant_id, content, grade, user_id):
@@ -142,8 +130,7 @@ def save_message(restaurant_id, content, grade, user_id):
         db.session.execute(sql, {"content":content, "restaurant_id":restaurant_id, "grade":grade, "user_id":user_id})
         db.session.commit()
         return True
-    except Exception as error:
-        print(error)
+    except Exception:
         return False
 
 def save_opening(day, opening_time, closing_time, open, restaurant_id):
@@ -155,8 +142,7 @@ def save_opening(day, opening_time, closing_time, open, restaurant_id):
                                  "restaurant_id":restaurant_id})
         db.session.commit()
         return True
-    except Exception as error:
-        print(error)
+    except Exception:
         return False
 
 
@@ -170,8 +156,7 @@ def get_messages(id):
         for message in messages:
             list.append(message)
         return list
-    except Exception as error:
-        print(error)
+    except Exception:
         return False
 
 def select_tags():
@@ -179,6 +164,5 @@ def select_tags():
         result = db.session.execute("SELECT DISTINCT tag FROM restaurant_tags WHERE tag NOTNULL")
         tag_list = result.fetchall()
         return tag_list
-    except Exception as error:
-        print(error)
+    except Exception:
         return False
