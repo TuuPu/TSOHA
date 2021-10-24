@@ -6,7 +6,7 @@ Lisäksi käyttäjät voivat arvostella haluamansa ravintolan antamalla sille ar
 
 ## Ensimmäinen versio
 
-Sovellusta pääsee testaamaan [Heroku-sivua käyttäen](http://tsoha-raflasovellustp.herokuapp.com/).
+Sovellusta pääsee testaamaan [Heroku-sivua käyttäen](https://tsoha-raflasovellustp.herokuapp.com/).
 
 Jos et halua luoda omaa käyttäjätunnustasi, voit hyvin käyttää testaukseen käyttäjää admintest salasanalla abc123. Voit myös halutessasi luoda oman tunnuksen.
 
@@ -38,6 +38,8 @@ Sivun ulkoasu on nyt valmis. Lisäksi viimeisessä palautuksessa on huomioitu ty
 * Antaa kommentin ja numeerisen arvostelun ravintolalle
 * Etsiä ravintolat kartan avulla
 * Hakea ravintoloita niiden kuvausten perusteella ja hakea ravintoloita niiden tagien perusteella
+
+Sivuille pääsee ensimmäisen version linkistä. Sivut ovat tarkoituksella täysin tyhjät tietokannan puolesta, joten käyttäjiä EI OLE luotu ja vahva suositus testaamisen osalta on se, että ensimmäinen käyttäjä luodaan Admin tunnuksin, jotta sivuille voi luoda sisältöä.
 
 ## Huomioita
 
