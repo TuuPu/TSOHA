@@ -17,10 +17,10 @@
     <h4>Admin's functions</h4>
     <p><a href="/addrestaurant">Add a restaurant</a></p>
     <p><a href="/deleterestaurant">delete a restaurant</a></p>
-    <p><a href="/tags">Give tags and other information for a restaurant</a></p>
+    <p><a href="/tags">Give tags for restaurants</a></p>
     <hr>
     {% endif %}
-    <p><a href="/restaurantlist">Check the list of restaurants</a></p>
+    <p><a href="/restaurantlist">Check the list of available restaurants</a></p>
     <p><a href="/map">Check restaurant locations from a map</a></p>
 
     <form action="/restaurantlist" method="POST">
@@ -33,6 +33,8 @@
                 <option value= "{{existing_tag.tag}}" SELECTED>{{existing_tag.tag}}</option>"
             {% endfor %}
         </select>
+        <p>
+        Not typing anything to the search box and clicking "search" automatically chooses a tag to be searched
             <p>
         <input type="submit" value="Search">
     </form>

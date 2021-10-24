@@ -54,7 +54,8 @@ def register():
         if users.register(username, password1, admin):
             return redirect("/")
         else:
-            return render_template("error.html", message="Couldn't register a new account, you could try a different username")
+            return render_template("error.html",
+                                   message="Couldn't register a new account, you could try a different username")
 
 #Valmis (voi vielä kattoa onko aukeeminen > sulkeminen)
 @app.route("/addrestaurant", methods=["GET", "POST"])
@@ -123,7 +124,8 @@ def restaurant(id):
     loc_raw = location.raw['address']
     address = loc_raw['road'] + ' ' + loc_raw['house_number']
     if request.method == "GET":
-        return render_template("restaurant.html", id=id, description=description, address=address, messages=messages, gradelists=gradelists, opening=opening, restaurant=restaurant)
+        return render_template("restaurant.html", id=id, description=description, address=address,
+                               messages=messages, gradelists=gradelists, opening=opening, restaurant=restaurant)
     if request.method == "POST":
         if not session.get("csrf_token") and not session.get("user_id"):
             return render_template("login.html")
@@ -136,7 +138,9 @@ def restaurant(id):
         if len(save_message)>5000:
             return render_template("error.html", message="Message too long")
         else:
-            return render_template("restaurant.html", id=id, description=description, address=address, savemessages=savemessages, messages=messages, gradelists=gradelists, opening=opening, restaurant=restaurant)
+            return render_template("restaurant.html", id=id, description=description, address=address,
+                                   savemessages=savemessages, messages=messages, gradelists=gradelists,
+                                   opening=opening, restaurant=restaurant)
 
 #Valmis
 @app.route("/deleterestaurant", methods=["GET", "POST"])
