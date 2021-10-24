@@ -41,6 +41,8 @@ Sivun ulkoasu on nyt valmis. Lisäksi viimeisessä palautuksessa on huomioitu ty
 
 Sivuille pääsee ensimmäisen version linkistä. Sivut ovat tarkoituksella täysin tyhjät tietokannan puolesta, joten käyttäjiä EI OLE luotu ja vahva suositus testaamisen osalta on se, että ensimmäinen käyttäjä luodaan Admin tunnuksin, jotta sivuille voi luoda sisältöä.
 
+Kun ensimmäinen tunnus on luotu (olettaen, että se on admin-oikeuksilla varustettu), niin sivuja voi käyttää vapaasti. Toki kannattaa aloittaa ravintolan luomisesta, sillä sen avulla mahdollistuu myös sivun muut toiminnot.
+
 ## Huomioita
 
 Ajoittain sivusto kaatuu, kun ravintolaa yrittää lisätä tai tietyn ravintolan sivulle yrittää mennä. Myös joskus arvostelujen yhteyksissä. En ole löytänyt tälle mitään muuta järkevää selitysä, kuin se, että geopy-kirjasto ilmoittaa Service Timeoutista. Esimerkiksi torstaina 14.10 en pystynyt testaamaan mitään lokaalisti, mutta Herokussa kaikki toimi hienosti. Toisaalta perjantaina asia oli toisinpäin. Tämä on varmaan ongelma, jonka kanssa joutuu elämään ilmaisversioiden takia.
